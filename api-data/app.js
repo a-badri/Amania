@@ -1,12 +1,32 @@
 const express = require(`express`)
+const morgan = require(`morgan`)
+const usersRouter = require(`./routes/users`)
+const productsRouter = require(`./routes/products`)
 
 
 const app = express()
 
+app.set(`view engine`, `pug`)
+app.use(morgan(`dev`))
+// app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(`/users`, usersRouter)
+app.use(`/products`, productsRouter)
 
-app.get(`/`, (req, res) => {
-  res.send(`welcome to Amania`)
+app.get(`/`, (req, res, next) => {
+  res.render(`add-user`)
 })
 
+//generic error handler
+app.use((err, req, res, next) => {
+  res.status(err.status || 500)
+  const isProduction = "production" === process.env.NODE_ENV
+  res.json({
+    title: err.title,
+    errors: err.errors,
+    messages: isProduction ? null : err.messages,
+    stack: isProduction ? null : err.stack
+  })
+})
 
 module.exports = app;
