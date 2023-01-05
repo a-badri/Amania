@@ -1,6 +1,7 @@
 const express = require(`express`)
 
 const router = express.Router()
+const cors = require(`cors`)
 
 const {asyncHandler, serverValidation} = require(`../utils`)
 
@@ -9,11 +10,11 @@ const db = require(`../db/models`)
 const bcrypt = require(`bcryptjs`)
 const {check, validationResult} = require(`express-validator`)
 const {genToken} = require(`../oAuth`)
-const bodyPraser = require(`body-parser`)
 
-// router.use(bodyPraser.json())
 
-const inputValidator = [
+
+
+const registerValidator = [
   
   check(`username`)
   .exists({checkFalsy: true})
@@ -34,22 +35,40 @@ const inputValidator = [
     .withMessage(`password must be between 9 and 20 characters`)
 ]
 
-router.post(`/`, inputValidator, serverValidation, asyncHandler(async(req, res, next) => {
-  console.log(req.body)
+router.post(`/`, registerValidator, serverValidation, asyncHandler(async(req, res, next) => {
   
-  const {username, email, password} = req.body
+  let {username, email, password} = req.body
   
   const hashedPassword = await bcrypt.hash(password, 10)
 
-  const user = await db.User.build({username, email, hashedPassword})
-
-  const token = genToken(user)
-
+  const user = await db.User.create({username, email, password})
   
-  await user.save()
-  res.json({user, token}).end()
+  const token = genToken(user)
+  
+  
+  res.status(201).json({user: {id: user.id}, token}).end()
 
 }))
 
+router.post(`/token`, asyncHandler(async(req, res, next) => {
+  const {email, password} = req.body
+
+  const user = await db.User.findOne({
+    where: {
+      email,
+    }
+  })
+
+  if(!user || !user.validatePassword(password)) {
+    const err = Error(`login failed`)
+    err.title = `login falied`
+    err.errors = [`can't find the user with credentials provided`]
+    err.status = 401;
+
+  }
+
+  const token = genToken(user)
+  res.status(201).json({token, user: {id: user.id}}).end()
+})) 
+
 module.exports = router
- 

@@ -3,14 +3,31 @@ const express = require(`express`)
 
 const router = express.Router()
 const db = require(`../db/models`)
-const {asyncHandler} = require(`../utils`)
+const {asyncHandler, serverValidation} = require(`../utils`)
+const {genToken, requireAuth} = require(`../oAuth`)
 
-router.post(`/`, asyncHandler(async(req, res, next) => {
+router.use(requireAuth)
+
+router.get(`/`, asyncHandler(async(req, res, next) => {
+  const products = db.Product.findAll({
+    // include: [{model: db.Store, as: `store`, attributes: [`name`]}],
+    random: true,
+    limit: 9,
+    attributes: [`name`, `price`]
+  })
+
+  res.json({products})
+}))
+
+router.post(`/`, serverValidation, asyncHandler(async(req, res, next) => {
 
   try {
     const {name, description, price} = req.body
 
-    const product = db.Product.create({name, description, price})
+    const userId = req.user.id
+    // console.log(userId)
+
+    const product = await db.Product.create({name, description, price, userId: userId})
 
     res.json({product})
   }
@@ -25,5 +42,27 @@ router.post(`/`, asyncHandler(async(req, res, next) => {
     }
   }
 }))
+
+
+const productNotFound = () => {
+  const err = new Error (`product doesn't exist`)
+  err.title = `product does not exist`
+  err.status = 404;
+  return err
+}
+
+router.get(`/:id(\\d+)`, asyncHandler(async(req, res, next) => {
+  const productId = parseInt(req.params.id, 10)
+  const product = await db.Product.findByPk(productId)
+
+  if(!product) {
+    next(productNotFound)
+  }
+
+
+  res.json({product})
+}))
+
+
 
 module.exports = router;

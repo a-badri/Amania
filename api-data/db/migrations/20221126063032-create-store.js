@@ -17,6 +17,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -25,10 +29,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      userId: {
-        allowNull: true,
-        type: Sequelize.INTEGER
-      }
     });
   },
   async down(queryInterface, Sequelize) {

@@ -19,7 +19,7 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(10, 2)
       },
       createdAt: {
         allowNull: false,
@@ -33,10 +33,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      storeId: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      }
     });
   },
   async down(queryInterface, Sequelize) {

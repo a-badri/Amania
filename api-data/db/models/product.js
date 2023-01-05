@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
         validate: {
           notNull: {
@@ -41,6 +41,18 @@ module.exports = (sequelize, DataTypes) => {
           },
           notEmpty: {
             msg: `please provide a price for your product`
+          }
+        }
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: `please sign in before you post your product`
+          },
+          notEmpty: {
+            msg: `please sign in before you post your product`
           }
         }
       }
