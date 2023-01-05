@@ -1,0 +1,14 @@
+extends layout.pug 
+
+block content 
+  div
+    div.errorsContainer
+    div
+      form.signUp-form
+        div.form-field
+          label(for=`username`) Username 
+          input(type=`text` name=`username`)
+        include form-fields
+        button(type=`submit`) Submit
+
+  script(src=`/js/sign-up.js`)
