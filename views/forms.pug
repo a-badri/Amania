@@ -1,0 +1,37 @@
+form.user-info
+  .full-name
+    label(for=`firsName`) First Name
+    input(type=`text` name=`firstName`)
+  .lastName 
+    label(for=`lastName`) Last Name
+    input(type=`text` name=`lastName`)
+  .phone-number 
+    label(for=`phoneNumber`) Contact Number
+    input(type=`number` name=`phoneNumber`)
+  .email 
+    label(for=`email`) Email Address
+    input(type=`text` name=`email`)
+  .address 
+    label(for=`street`) Street Address
+    input(type=`text` name =`street`)
+    label(for=`city`) City
+    input(type=`text` name=`city`)
+    label(for=`state`) State 
+    input(type=`text` name=`state`)
+    label(for=`zipcode`) Zip Code 
+    input(type=`number` name=`zipcode`)
+  button(type=`submit`) Save Changes
+
+
+.change-password 
+form.password-change
+  div.old-password
+    label(for=`old-password`) type your old password 
+    input(type=`password` name=`old-password`)
+  div.new-password
+    label(for=`new-password`) create a new password
+    input(type=`password` name=`new-password`)
+  div.confirm-password
+    label(for=`confirm-password`) retype your new password
+    input(type=`password` name=`confirm-password`)
+  button(type=`submit`) Save Changes

@@ -1,0 +1,57 @@
+extends layout.pug 
+
+block content
+  .profile-container
+    .sections-bar 
+      .personal-info
+        button.info-btn
+          h1 Personal Info
+      .purchases
+        button.purchses-btn
+          h1 Purchases
+      .security
+        button.security-btn
+          h1 Privacy & Security
+
+    .setting-forms
+      .info-form
+        form.user-info(style="display:none;")
+          h3 Full Name
+          .full-name
+            label(for=`firsName`) First Name
+            input(type=`text` name=`firstName`)
+          .lastName
+            label(for=`lastName`) Last Name
+            input(type=`text` name=`lastName`)
+          h3 Contact
+          .phone-number 
+            label(for=`phoneNumber`) Contact Number
+            input(type=`number` name=`phoneNumber`)
+          .email 
+            label(for=`email`) Email Address
+            input(type=`text` name=`email`)
+          h3 Address
+          .address 
+            label(for=`street`) Street Address
+            input(type=`text` name =`street` id=`street-address`)
+            label(for=`city`) City
+            input(type=`text` name=`city`)
+            label(for=`state`) State 
+            input(type=`text` name=`state`)
+            label(for=`zipcode`) Zip Code 
+            input(type=`number` name=`zipcode`)
+          button(type=`submit` id=`btn`) Save Changes
+      .change-password 
+        form.password-change(style="display:none;")
+          div.old-password
+            label(for=`old-password`) type your old password 
+            input(type=`password` name=`old-password`)
+          div.new-password
+            label(for=`new-password`) create a new password
+            input(type=`password` name=`new-password`)
+          div.confirm-password
+            label(for=`confirm-password`) retype your new password
+            input(type=`password` name=`confirm-password`)
+          button(type=`submit`) Save Changes
+
+  script(src=`js/profile.js`)
