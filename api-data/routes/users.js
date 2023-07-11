@@ -1,7 +1,7 @@
 const express = require(`express`)
 
 const router = express.Router()
-const cors = require(`cors`)
+
 
 const {asyncHandler, serverValidation} = require(`../utils`)
 
@@ -35,40 +35,169 @@ const registerValidator = [
     .withMessage(`password must be between 9 and 20 characters`)
 ]
 
-router.post(`/`, registerValidator, serverValidation, asyncHandler(async(req, res, next) => {
+router.post(`/test`, asyncHandler(async(req, res, next) => {
+
+  const {email, password} = req.body;
+
+  console.log(email, password)
+
+  const user = await db.User.findOne({ where: {email}})
+
+  if(!user || !user.validatePassword(password, user.hashedPassword)) { 
+    const err = Error(`login failed`)
+    err.title = `login falied`
+    err.errors = [`can't find the user with credentials provided`]
+    err.status = 401;
+    return next(err)
+  }
+
+  const token = genToken(user)
+
+  if (user && token) {
+    res.status(200).json({
+      message: "user exist and token generated",
+      user,
+      token
+    })
+  }
+  else {
+    next();
+  }
+}))
+
+router.post(`/`, asyncHandler(async(req, res, next) => {
   
   let {username, email, password} = req.body
-  
-  const hashedPassword = await bcrypt.hash(password, 10)
 
-  const user = await db.User.create({username, email, password})
+  try {
+
+    if(!username || !email || !password) {
+      res.status(400).send({
+        message: "Check your fields"});
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10)
   
-  const token = genToken(user)
+    const user = await db.User.create({
+      username: username,
+      email: email,
+      hashedPassword: hashedPassword
+    })
+    
+    const token = genToken(user)
+    
+    res.status(201).json({user, token})
   
+    // res.status(200).send({
+    //   dataReceived: req.body
+    // });
   
-  res.status(201).json({user: {id: user.id}, token}).end()
+    //next();
+
+  } 
+  catch(err) {
+    if (err.name === `SequelizeValidationError`) {
+      const errors = err.errors.map((err) => err.msg)
+      err.json({errors})
+    }
+    else {
+      next(err)
+    }
+  }
+
+  // console.log(req.body);
+  // console.log("I got hit");
+
+  // const validations = validationResult(req)
+
+  // if(!validations.isEmpty()) {
+
+  //   const errors = validations.array().map((error) => error.msg)
+  //   const err = new Error(`Bad request.`)
+  //   err.status = 404;
+  //   err.errors = errors;
+  //   err.title = `Invalid Inputs`;
+  //   return next(err)
+  // }
+  // else {
+
+  //   const hashedPassword = await bcrypt.hash(password, 10)
+  
+  //   const user = await db.User.create({username, email, hashedPassword})
+    
+  //   const token = genToken(user)
+    
+  //   res.status(201).json({user: {id: user.id}, token}).end()
+  
+  // }
 
 }))
 
 router.post(`/token`, asyncHandler(async(req, res, next) => {
   const {email, password} = req.body
 
+  console.log(email, password)
+
   const user = await db.User.findOne({
     where: {
-      email,
+      email: email
     }
   })
 
-  if(!user || !user.validatePassword(password)) {
-    const err = Error(`login failed`)
-    err.title = `login falied`
-    err.errors = [`can't find the user with credentials provided`]
-    err.status = 401;
+    if (user) {
+      res.status(201).json({user: id})
+    } else {
+      res.status(401).json(`user can't be found`)
+    }
+    
 
-  }
 
-  const token = genToken(user)
-  res.status(201).json({token, user: {id: user.id}}).end()
+  
+
+  // if(!user || !user.validatePassword(password)) {
+  //   const err = Error(`login failed`)
+  //   err.title = `login falied`
+  //   err.errors = [`can't find the user with credentials provided`]
+  //   err.status = 401;
+
+  // }
+
+  //const token = genToken(user)
+  //res.status(201).json({token, user: {id: user.id}}).end()
 })) 
+
+router.put(`/:id(\\+d)/email`, asyncHandler(async(req, res, next) => {
+  const {email} = req.body
+  const userId = parseInt(req.params.id, 10)
+
+  const user = await db.User.findByPk(userId)
+
+  await user.update(email)
+
+  res.json({user})
+
+}))
+
+router.put(`/:id(\\+d)/password`, asyncHandler(async(req, res, next) => {
+  const {password} = req.body
+  
+  const userId = parseInt(req.params.id, 10)
+
+  const user = await db.User.findByPk(userId)
+
+  const hashedPassword = await bcrypt.hash(password, 10)
+
+  await user.update(hashedPassword)
+
+  res.json({user})
+}))
+
+router.delete(`/:id(\\+d)`, asyncHandler(async(req, res, next) => {
+  const userId = parseInt(req.params.id, 10)
+  const user = await db.User.findByPk(userId)
+  await user.destroy()
+}))
+
+
 
 module.exports = router

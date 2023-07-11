@@ -9,38 +9,63 @@ const {genToken, requireAuth} = require(`../oAuth`)
 router.use(requireAuth)
 
 router.get(`/`, asyncHandler(async(req, res, next) => {
-  const products = db.Product.findAll({
-    // include: [{model: db.Store, as: `store`, attributes: [`name`]}],
-    random: true,
-    limit: 9,
-    attributes: [`name`, `price`]
-  })
+  try {
+    const products = await db.Product.findAll({
+      // include: [{model: db.User, as: `user`, attributes: [`username`]}],
+      order: [["createdAt", "DESC"]],
+      attributes: [`id`, `name`, `description`, `price`]
+    })
 
-  res.json({products})
+    res.status(200).json({products})
+
+  }
+  catch(err) {
+    next(err)
+  }
 }))
 
-router.post(`/`, serverValidation, asyncHandler(async(req, res, next) => {
+router.post(`/testing`, asyncHandler(async(req, res, next) => {
+  const {name, description, price} = req.body
+  const product = {name, description, price}
+  
+  res.status(201).json({product})
+}))
+
+router.post(`/`, asyncHandler(async(req, res, next) => {
+  const {name, description, price} = req.body
+
+  
+  const userId = req.user.id
+  
+  console.log(userId)
 
   try {
-    const {name, description, price} = req.body
+    // if (!name || !description || !price) {
+    //   res.status(201).send({message: `check your fields`})
+    // }
 
-    const userId = req.user.id
-    // console.log(userId)
 
-    const product = await db.Product.create({name, description, price, userId: userId})
 
-    res.json({product})
+
+    const product = await db.Product.create({name, description, price, userId})
+
+    res.status(201).json({product})
   }
 
-  catch(err) {
+  catch (err) {
     if (err.name === `SequelizeValidationError`) {
-      const errors = err.errors.map((err) => err.msg)
-      res.json({errors})
+      err.status = 406;
+      const errors = err.errors.map((error) => error.message)
+      console.log(errors)
+      err.json({errors})
     }
     else {
       next(err)
     }
   }
+
+
+
 }))
 
 
@@ -62,6 +87,58 @@ router.get(`/:id(\\d+)`, asyncHandler(async(req, res, next) => {
 
   res.json({product})
 }))
+
+
+router.put(`/:id(\\d+)`, asyncHandler(async(req, res, next) => {
+  try {
+    const id = req.user.id
+    const product = await db.Product.findByPk(req.params.id)
+
+    await product.update({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      userId: id
+    })
+
+    res.status(201).json({product})
+
+  }
+
+  catch(err) {
+    next(err)
+  }
+
+}))
+
+// router.put(`/:id(\\+d)/name`, asyncHandler(async(req, res, next) => {
+//   const {name} = req.body
+//   const productId = parseInt(req.params.id, 10)
+//   const product = await db.Product.findByPk(productId)
+//   await product.update(name)
+//   res.json({product})
+// }))
+
+// router.put(`/:id(\\+d)/description`, asyncHandler(async(req, res, next) => {
+//   const {description} = req.body
+//   const productId = parseInt(req.params.id, 10)
+//   const product = await db.Product.findByPk(productId)
+//   await product.update(description)
+//   res.json({product})
+// }))
+
+router.delete(`/:id(\\d+)`, asyncHandler(async(req, res, next) => {
+  try {
+    const productId = parseInt(req.params.id, 10)
+    const product = await db.Product.findByPk(productId)
+    await db.Product.destroy({where: {id: productId}})
+    res.status(204).json({message: `product was destroyed`})
+  }
+  catch (err) {
+    next(err)
+  }
+}))
+
 
 
 
