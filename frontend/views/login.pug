@@ -1,0 +1,11 @@
+extends layout.pug 
+
+block content 
+  div
+    div.errorsContainer
+    div
+      form.login-form
+        include form-fields 
+        button(type=`submit`) Submit 
+
+  script(src=`/js/login.js`)

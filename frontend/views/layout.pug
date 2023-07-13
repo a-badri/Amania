@@ -1,0 +1,38 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Document
+    link(rel="stylesheet", href="/css/navbar.css", type='text/css')
+    block css_link
+  body
+    div.navbar-1
+      .logo
+         img(src="https://cdn-icons-png.flaticon.com/128/6871/6871946.png", alt="")
+      .search
+        img(src="https://cdn-icons-png.flaticon.com/128/54/54481.png", class=`icon`)
+        input(type=`text` class=`search-bar` placeholder=`what item you looking for...`)
+      .profile-cart
+        img(src=`https://cdn-icons-png.flaticon.com/128/3144/3144456.png` class=`icon`)
+        a(href="http://localhost:8080/profile")
+          img(src=`https://cdn-icons-png.flaticon.com/128/1144/1144760.png` class=`icon`)
+    div.navbar-2
+      .sections
+        a(href=`http://localhost:4000/products/men`) Men 
+        a(href=`http://localhost:4000/products/women`) Women
+        a(href=`http://localhost:4000/products/kids`) Kids 
+        a(href=`http://localhost:4000/products/sale`) Sale
+
+    block content
+    footer
+      ul
+        li
+          a(href="#") About Us
+        li
+          a(href="#") Contacts
+        li
+          a(href="#") Sell on Amania
+      div
+        span ® this website was designed by badri

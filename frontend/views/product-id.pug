@@ -1,0 +1,77 @@
+extends layout.pug
+
+block css_link 
+  link(rel="stylesheet", href=`/css/product-id.css`)
+block content
+  .the-product 
+    .product-slide-show
+      .big-left-arrow
+        button(id=`left`): img(src="https://cdn-icons-png.flaticon.com/128/271/271220.png", alt="1", class="big-arrow" id=`left`)
+      .product-images
+        .slide-image
+          img(src="https://images.pexels.com/photos/1043148/pexels-photo-1043148.jpeg?auto=compress&cs=tinysrgb&w=800", alt="")
+        .slide-image
+          img(src="https://drive.google.com/uc?export=view&id=1MqlCs5datAIxgGmWqtoX_jjzfYaIQtIv", alt="")
+        .slide-image
+          img(src="https://drive.google.com/uc?export=view&id=1MuUB2dxKcXyFlf_DNHBhQWnMirRO-1do", alt="")
+        .slide-image
+          img(src="https://drive.google.com/uc?export=view&id=1MuUB2dxKcXyFlf_DNHBhQWnMirRO-1do", alt="")
+        .slide-image
+          img(src="https://drive.google.com/uc?export=view&id=1MuUB2dxKcXyFlf_DNHBhQWnMirRO-1do", alt="")
+      .big-right-arrow
+        button(id=`right`): img(src="https://cdn-icons-png.flaticon.com/128/271/271228.png", alt="", class="big-arrow" id=`right`)
+    .purchase-details
+      .product-name 
+      .product-size
+        label(for=`size`) Size
+        select(id=`size`) --choose a size--
+          option(value=`Small`) S-Small
+          option(value=`Medium`) M-Medium
+          option(value=`Large`) L-Large
+      .product-price
+        p Price: 
+          span.price-from-db $
+      .checkout-container
+        .buy-it-container 
+          button.bttn Buy It Now
+        .add-cart-container 
+          button.bttn Add to Cart
+    .product-thumbnails
+      .small-left-arrow
+        button: img(src="https://cdn-icons-png.flaticon.com/128/271/271220.png", alt="", class="small-arrow" id=`left`)
+      .thumbnails
+        button: img(src="https://images.pexels.com/photos/1043148/pexels-photo-1043148.jpeg?auto=compress&cs=tinysrgb&w=800", alt="")
+        button: img(src="https://drive.google.com/uc?export=view&id=1MqlCs5datAIxgGmWqtoX_jjzfYaIQtIv", alt="")
+        button: img(src="https://drive.google.com/uc?export=view&id=1MuUB2dxKcXyFlf_DNHBhQWnMirRO-1do", alt="")
+        button: img(src="https://drive.google.com/uc?export=view&id=1MuUB2dxKcXyFlf_DNHBhQWnMirRO-1do", alt="")
+        button: img(src="https://drive.google.com/uc?export=view&id=1MuUB2dxKcXyFlf_DNHBhQWnMirRO-1do", alt="")
+        button: img(src="https://images.pexels.com/photos/1043148/pexels-photo-1043148.jpeg?auto=compress&cs=tinysrgb&w=800", alt="")
+        button: img(src="https://drive.google.com/uc?export=view&id=1MqlCs5datAIxgGmWqtoX_jjzfYaIQtIv", alt="")
+      .small-right-arrow
+        button: img(src="https://cdn-icons-png.flaticon.com/128/271/271228.png", alt="", class="small-arrow" id=`right`)
+
+
+  .product-details
+    .about-product
+      h2 details about this product 
+    .product-specifics
+      .product-descrption
+        p Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa repudiandae tempora quia saepe rerum amet assumenda facere deserunt blanditiis suscipit a ipsa, tenetur unde provident consequatur laborum earum asperiores voluptate.
+      .availbility: span Availability:
+      .department: span Department:
+      .color: span Color: 
+      .type: span Type: 
+      .brand: span Brand:
+      .material: span Material:
+      .country: span Country of Making:
+      .year: span Year of Making:
+
+  .other-products
+    .other-products-title
+      h2 Products you might like
+    .other-products-container
+    
+
+
+
+  script(src=`../js/product-id.js`)

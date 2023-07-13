@@ -1,0 +1,23 @@
+extends layout.pug 
+
+block content 
+  .errorsContainer
+  .banners
+    .slideShow
+      .img-container
+        img.banner(src="https://images.pexels.com/photos/5868272/pexels-photo-5868272.jpeg?auto=compress&cs=tinysrgb&w=800")
+      .img-container
+        img.banner(src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=800")
+      .img-container
+        img.banner(src="https://images.pexels.com/photos/1087727/pexels-photo-1087727.jpeg?auto=compress&cs=tinysrgb&w=800")
+  h1 Products 
+  .ProductsContainer
+  section.promo-commerce
+    img(src="https://images.pexels.com/photos/327540/pexels-photo-327540.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
+    div.text-section
+      h2 It's your time to Earn
+      p Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ullam hic facere suscipit explicabo id. Necessitatibus, minus? Quas tempora libero culpa blanditiis fugit? Ipsum repudiandae iure maiores ab ipsa quibusdam quidem et recusandae autem doloribus.
+      a.button(href=`http://localhost:8080/products`) Start Here
+
+
+  script(src=`js/index.js`)

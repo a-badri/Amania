@@ -1,0 +1,20 @@
+extends layout.pug 
+
+block content
+  script(src=`js/products.js` type=`module`)
+  div
+    .errorsContainer 
+    .addingProduct 
+      form.add-product
+        .form-field
+          label(for=`name`) Product name
+          input(type=`text` name=`name`)
+        .form-field
+          label(for=`description`) Description 
+          input(type=`textarea` name=`description`)
+        .form-field
+          lebel(for=`price`) Price 
+          input(type=`text` name=`price`)
+        button(type=`submit`) Submit
+
+    .productsList
