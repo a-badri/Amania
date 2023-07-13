@@ -7,7 +7,7 @@ app.set(`view engine`, `pug`)
 app.use(express.static(path.join(__dirname, "public")))
 // app.use(bodyParser.json());
 
-console.log(path.resolce)
+
 
 app.get(`/`, (req, res) => {
   res.render(`index`)
