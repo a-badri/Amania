@@ -2,15 +2,23 @@ const express = require(`express`)
 const morgan = require(`morgan`)
 const cors = require(`cors`)
 const app = express()
+const bodyParser = require(`body-parser`)
 const usersRouter = require(`./routes/users`)
 const productsRouter = require(`./routes/products`)
 
 
+app.use(bodyParser.json());
 
-app.set(`view engine`, `pug`)
-app.use(morgan(`dev`))
-app.use(cors({origin: "http://localhost:8080"}))
-app.use(express.json({extended: true}))
+// app.set(`view engine`, `pug`);
+app.use(morgan(`dev`));
+
+app.use(cors({
+  origin: "*",
+  method: ["POST", "GET", "PUT"],
+  credentials: true
+}))
+
+
 
 
 app.use(`/users`, usersRouter)
