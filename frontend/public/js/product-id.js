@@ -62,7 +62,7 @@ document.addEventListener(`DOMContentLoaded`, async() => {
     })
 
     const {products} = await res.json()
-    
+    console.log(products)
 
     if(!res.ok) {
       otherProducts.innerHTML = `

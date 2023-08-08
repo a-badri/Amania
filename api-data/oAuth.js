@@ -5,7 +5,6 @@ const {jwtConfig} = require(`./config`)
 const {secret, expireIn} = jwtConfig
 
 const genToken = user => {
-
   const {id, username, email} = user
   const data = {id, email}
   const token = jwt.sign( 
@@ -30,7 +29,7 @@ const userAuth = (req, res, next) => {
       return next(err)
     }
 
-    console.log(jwtPayload)
+    console.log(token)
 
     const {id} = jwtPayload
 

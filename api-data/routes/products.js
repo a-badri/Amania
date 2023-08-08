@@ -24,6 +24,24 @@ router.get(`/`, asyncHandler(async(req, res, next) => {
   }
 }))
 
+router.get(`/random/4`, asyncHandler(async(req, res, next) => {
+  try {
+  const products = await db.Product.findAll({
+    order: db.sequelize.random(),
+    limit: 4
+  })
+
+  console.log(products)
+
+  res.status(201).json({products})
+  }
+  catch(err) {
+    next(err)
+  }
+
+}))
+
+
 router.post(`/testing`, asyncHandler(async(req, res, next) => {
   const {name, description, price} = req.body
   const product = {name, description, price}
@@ -83,6 +101,8 @@ router.get(`/:id(\\d+)`, asyncHandler(async(req, res, next) => {
   if(!product) {
     next(productNotFound)
   }
+
+  console.log(product)
 
 
   res.json({product})

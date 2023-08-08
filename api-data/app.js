@@ -18,6 +18,10 @@ app.use(cors({
   credentials: true
 }))
 
+// app.use(cors({
+//   origin: `http://localhost:8080`
+// }))
+
 
 
 
