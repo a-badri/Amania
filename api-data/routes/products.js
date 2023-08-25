@@ -24,11 +24,12 @@ router.get(`/`, asyncHandler(async(req, res, next) => {
   }
 }))
 
-router.get(`/random/4`, asyncHandler(async(req, res, next) => {
+router.get(`/random/:id(\\d+)`, asyncHandler(async(req, res, next) => {
+  const num = req.url.split(`/`)[2]
   try {
-  const products = await db.Product.findAll({
+    const products = await db.Product.findAll({
     order: db.sequelize.random(),
-    limit: 4
+    limit: num
   })
 
   console.log(products)
@@ -101,8 +102,6 @@ router.get(`/:id(\\d+)`, asyncHandler(async(req, res, next) => {
   if(!product) {
     next(productNotFound)
   }
-
-  console.log(product)
 
 
   res.json({product})
