@@ -1,0 +1,77 @@
+
+.profile-container {
+  display: flex;
+  height: 600px;
+  justify-content: space-between;
+}
+
+.sections-bar {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 25%;
+  margin-top: 10px;
+}
+
+.sections-bar div {
+  background-color: var(--darkAccentColor);
+  border-right: 2px ridge #ffe4b5;
+  border-top: 2px;
+  border-bottom: 2px;
+  width: 100%;
+  height: 10%;
+  margin: 10px 5px 10px 0;
+  transform: translateX(-70px);
+}
+
+.sections-bar h1 {
+  position: relative;
+  left: 70px;
+}
+
+
+.sections-bar button {
+  background-color: transparent;
+  border: none;
+  
+}
+
+.setting-forms {
+  display: flex;
+  flex-basis: 70%;
+  justify-content: center;
+  height: stretch;
+  background-color: #B0C4DE;
+  border-radius: 20px;
+  margin: 20px;
+}
+
+.info-form {
+  margin-left: 100px;
+  margin-top: 60px;
+}
+
+.user-info,  .password-change {
+  width: 80%;
+}
+
+label, input {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.user-info label {
+  width: 30%;
+  text-align: right;
+}
+
+label+input {
+  width: 30%;
+  margin: 0 30% 0 4%;
+}
+
+#btn {
+  float: right;
+}
