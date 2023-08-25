@@ -28,14 +28,6 @@ loginForm.addEventListener(`submit`, async(e) => {
 
       const {user, message, token} = await res.json()
 
-      // const testing = document.querySelector(`.errorsContainer`)
-
-      // testing.innerHTML = `
-      //   <p> ${message} </p>
-      //   <p> ${user.id} </p>
-      //   <p> ${user.username} </p>
-      // `
-
       localStorage.setItem(`uesrId`, user.id)
       localStorage.setItem(`token`, token)
 

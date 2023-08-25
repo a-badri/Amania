@@ -1,5 +1,8 @@
 extends layout.pug 
 
+block css_link
+  link(rel="stylesheet", href="/css/index.css")
+
 block content 
   .errorsContainer
   .banners
@@ -10,8 +13,9 @@ block content
         img.banner(src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=800")
       .img-container
         img.banner(src="https://images.pexels.com/photos/1087727/pexels-photo-1087727.jpeg?auto=compress&cs=tinysrgb&w=800")
-  h1 Products 
-  .ProductsContainer
+  .sample-products
+    h1.products-headline Products 
+    .ProductsContainer
   section.promo-commerce
     img(src="https://images.pexels.com/photos/327540/pexels-photo-327540.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
     div.text-section

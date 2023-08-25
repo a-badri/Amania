@@ -1,7 +1,7 @@
 document.addEventListener(`DOMContentLoaded`, async (e) => {
   
   try {
-    const res = await fetch(`http://localhost:4000/products`, {
+    const res = await fetch(`http://localhost:4000/products/random/9`, {
     method: `GET`,
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -9,7 +9,6 @@ document.addEventListener(`DOMContentLoaded`, async (e) => {
     })
 
     const {products} = await res.json()
-    console.log(res.json(products))
 
     const productsContainer = document.querySelector(`.ProductsContainer`)
     let productHTML = products.map((product) => 
@@ -44,7 +43,7 @@ document.addEventListener(`DOMContentLoaded`, async (e) => {
     for (let i = 0; i < allProductPic.length; i++) {
       const productPic = allProductPic[i]
       let picUpload = `
-      <img class="pic" src='${images[i]}' width="100%" height="100%">
+      <img class="pic" src='${images[i]}'">
       `
 
       productPic.innerHTML = picUpload
