@@ -19,7 +19,8 @@ buttons.forEach(button => {
 
 const updateUserBtn = document.querySelector(".update-user-btn")
 
-updateUserBtn.addEventListener("click", async() => {
+updateUserBtn.addEventListener("submit", async(e) => {
+  e.preventDefault();
   const form = document.querySelector("form.user-info")
   const formData = new FormData(form)
   
@@ -45,7 +46,6 @@ updateUserBtn.addEventListener("click", async() => {
       throw res1;
     }
 
-    window.location.href = 'http://localhost:8080/settings'
   }
   catch (err) {
     console.log(err)

@@ -16,7 +16,7 @@ loginForm.addEventListener(`submit`, async(e) => {
 
   try {
 
-    const res = await fetch(`http://localhost:4000/users/test`, {
+    const res = await fetch(`http://localhost:4000/users/token`, {
         method: `POST`,
         body: JSON.stringify(body),
         headers: {"Content-Type": "application/json"}

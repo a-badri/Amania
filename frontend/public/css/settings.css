@@ -76,3 +76,11 @@ label+input {
 #btn {
   float: right;
 }
+
+.update-user-btn {
+  width: 120px;
+  height: 50px;
+  background-color: var(--primaryColor);
+  color: white;
+  border-radius: 22px;
+}
