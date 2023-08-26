@@ -43,10 +43,11 @@
   flex-basis: 70%;
   justify-content: center;
   height: stretch;
-  background-color: #B0C4DE;
+  background-color: transparent;
   border-radius: 20px;
   margin: 20px;
 }
+
 
 .info-form {
   margin-left: 100px;

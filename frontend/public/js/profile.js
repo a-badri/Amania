@@ -17,20 +17,37 @@ buttons.forEach(button => {
   })
 })
 
+const updateUserBtn = document.querySelector(".update-user-btn")
 
+updateUserBtn.addEventListener("click", async() => {
+  const form = document.querySelector("form.user-info")
+  const formData = new FormData(form)
+  
+  const email = formData.get("email")
+  const streetAdress = formData.get("street")
+  const city = formData.get("city")
+  const state = formData.get("state")
+  const zipcode = formData.get("zipcode")
 
+  const address = {streetAdress, city, state, zipcode}
 
-// infoBtn.addEventListener(`click`, () => {
-//   // window.location.href = `http://localhost:8080`;
-//   // console.log(settingForms.childNodes);
-//   document.querySelector(`.user-info`).style.display = ``
-//   document.querySelector(`.password-change`).style.display = `none`
+  try {
+    const res1 = await fetch ("http://localhost:4000/users/:id(\\+d)/email", {
+      method: "PUT",
+      body: email,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
 
-// })
+    if(!res1.ok) {
+      console.log("res was throw")
+      throw res1;
+    }
 
-
-
-// securtityBtn.addEventListener(`click`, () => {
-//   document.querySelector(`.user-info`).style.display = `none`
-//   document.querySelector(`.password-change`).style.display = ``
-// })
+    window.location.href = 'http://localhost:8080/settings'
+  }
+  catch (err) {
+    console.log(err)
+  }
+})

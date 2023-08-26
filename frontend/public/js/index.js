@@ -13,7 +13,7 @@ document.addEventListener(`DOMContentLoaded`, async (e) => {
     const productsContainer = document.querySelector(`.ProductsContainer`)
     let productHTML = products.map((product) => 
       `
-      <div class="product-box">
+      <div class="product-box" >
         <div class="product-pic">
         </div>
         <div class="name-price">
