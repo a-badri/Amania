@@ -9,7 +9,7 @@ document.addEventListener(`DOMContentLoaded`, async (e) => {
     })
 
     const {products} = await res.json()
-    console.log(res.json(products))
+    console.log(products)
 
     const productsContainer = document.querySelector(`.ProductsContainer`)
     let productHTML = products.map((product) => 

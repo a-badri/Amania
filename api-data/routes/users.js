@@ -105,32 +105,6 @@ router.post(`/`, asyncHandler(async(req, res, next) => {
     }
   }
 
-  // console.log(req.body);
-  // console.log("I got hit");
-
-  // const validations = validationResult(req)
-
-  // if(!validations.isEmpty()) {
-
-  //   const errors = validations.array().map((error) => error.msg)
-  //   const err = new Error(`Bad request.`)
-  //   err.status = 404;
-  //   err.errors = errors;
-  //   err.title = `Invalid Inputs`;
-  //   return next(err)
-  // }
-  // else {
-
-  //   const hashedPassword = await bcrypt.hash(password, 10)
-  
-  //   const user = await db.User.create({username, email, hashedPassword})
-    
-  //   const token = genToken(user)
-    
-  //   res.status(201).json({user: {id: user.id}, token}).end()
-  
-  // }
-
 }))
 
 router.post(`/token`, asyncHandler(async(req, res, next) => {
@@ -154,16 +128,16 @@ router.post(`/token`, asyncHandler(async(req, res, next) => {
 
   
 
-  // if(!user || !user.validatePassword(password)) {
-  //   const err = Error(`login failed`)
-  //   err.title = `login falied`
-  //   err.errors = [`can't find the user with credentials provided`]
-  //   err.status = 401;
+  if(!user || !user.validatePassword(password)) {
+    const err = Error(`login failed`)
+    err.title = `login falied`
+    err.errors = [`can't find the user with credentials provided`]
+    err.status = 401;
 
-  // }
+  }
 
-  //const token = genToken(user)
-  //res.status(201).json({token, user: {id: user.id}}).end()
+  const token = genToken(user)
+  res.status(201).json({token, user: {id: user.id}}).end()
 })) 
 
 router.put(`/:id(\\+d)/email`, asyncHandler(async(req, res, next) => {
