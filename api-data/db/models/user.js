@@ -47,6 +47,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     hashedPassword: {
       type: DataTypes.STRING.BINARY,
       allowNull: false

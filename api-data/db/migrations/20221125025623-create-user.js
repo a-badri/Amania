@@ -32,6 +32,12 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+    await queryInterface.addColumn(
+      "Users",
+      "firstName",
+      Sequelize.STRING
+    )
+
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Users');
