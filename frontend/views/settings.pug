@@ -18,8 +18,8 @@ block content
 
     .setting-forms
       .current-setting
-      .info-form(style="display:none;")
-        form.user-info#set-1
+      .info-form#set-1(style="display:none;")
+        form.user-info
           h3 Full Name
           .full-name
             label(for=`firsName`) First Name
@@ -45,8 +45,8 @@ block content
             label(for=`zipcode`) Zip Code 
             input(type=`number` name=`zipcode`)
           button(type=`submit` class="update-user-btn" id=`btn`) Save Changes
-      .change-password(style="display:none;")
-        form.password-change#set-3
+      .change-password#set-3(style="display:none;")
+        form.password-change
           div.old-password
             label(for=`old-password`) type your old password 
             input(type=`password` name=`old-password`)

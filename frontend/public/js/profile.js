@@ -11,43 +11,50 @@ const buttons = document.querySelectorAll(`.button`)
 buttons.forEach(button => {
   button.addEventListener(`click`, () => {
     const id = button.getAttribute(`id`)
-    const form = document.querySelector(`form#${id}`)
+    const selectedSet = document.querySelector(`.setting-forms #${id}`)
     let currentSetting = document.querySelector(`.current-setting`)
-    currentSetting.innerHTML = form.outerHTML;
+    console.log(currentSetting)
+    currentSetting.innerHTML = selectedSet.outerHTML;
+    currentSetting.querySelector(`#${id}`).removeAttribute("style")
+
+
+    const infoForm = document.querySelector(".current-setting form")
+    infoForm.addEventListener("submit", async(e) => {
+      e.preventDefault()
+      
+      const formData = new FormData(infoForm)
+
+      const firstName = formData.get("firstName")
+      const lastName = formData.get("lastName")
+      const phoneNum = formData.get("phoneNumber")
+      const email = formData.get("email")
+      const streetAdress = formData.get("street")
+      const city = formData.get("city")
+      const state = formData.get("state")
+      const zipcode = formData.get("zipcode")
+
+      const address = {streetAdress, city, state, zipcode}
+
+      try {
+        const res1 = await fetch ("http://localhost:4000/users/:id(\\+d)/email", {
+          method: "PUT",
+          body: email,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+
+        if(!res1.ok) {
+          console.log("res was throw")
+          throw res1;
+        }
+
+      }
+      catch (err) {
+        console.log(err)
+      }
+    })
   })
 })
 
-const updateUserBtn = document.querySelector(".update-user-btn")
 
-updateUserBtn.addEventListener("submit", async(e) => {
-  e.preventDefault();
-  const form = document.querySelector("form.user-info")
-  const formData = new FormData(form)
-  
-  const email = formData.get("email")
-  const streetAdress = formData.get("street")
-  const city = formData.get("city")
-  const state = formData.get("state")
-  const zipcode = formData.get("zipcode")
-
-  const address = {streetAdress, city, state, zipcode}
-
-  try {
-    const res1 = await fetch ("http://localhost:4000/users/:id(\\+d)/email", {
-      method: "PUT",
-      body: email,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    })
-
-    if(!res1.ok) {
-      console.log("res was throw")
-      throw res1;
-    }
-
-  }
-  catch (err) {
-    console.log(err)
-  }
-})
