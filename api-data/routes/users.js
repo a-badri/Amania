@@ -9,7 +9,7 @@ const db = require(`../db/models`)
 
 const bcrypt = require(`bcryptjs`)
 const {check, validationResult} = require(`express-validator`)
-const {genToken} = require(`../oAuth`)
+const {genToken, requireAuth} = require(`../oAuth`)
 
 
 
@@ -108,23 +108,23 @@ router.post(`/`, asyncHandler(async(req, res, next) => {
 }))
 
 
-router.put(`/:id(\\+d)/email`, asyncHandler(async(req, res, next) => {
+router.put(`/:id(\\+d)/email`, requireAuth, asyncHandler(async(req, res, next) => {
   try {
-    const email = req.body
-    console.log(email)
-    // const userId = parseInt(req.params.id, 10)
-
-    // const user = await db.User.findByPk(userId)
-
-    // await user.update(email)
-
-    // res.json({user})
+    const {email} = req.body
+    if (!email) res.json({emailAddress: `cors works but body is empty`}).end()
+    res.json({emailAddress: `body received`})
   }
   catch (err) {
-    console.log(err)
+    next(err)
   }
-
 }))
+
+
+//     const user = await db.User.findByPk(userId)
+
+//     await user.update(email)
+
+//     res.json({user})
 
 router.put(`/:id(\\+d)/password`, asyncHandler(async(req, res, next) => {
   const {password} = req.body

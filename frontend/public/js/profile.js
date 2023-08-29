@@ -35,20 +35,25 @@ buttons.forEach(button => {
 
       const address = {streetAdress, city, state, zipcode}
 
+      const userId = localStorage.getItem("uesrId")
+      console.log(userId);
+
       try {
-        const res1 = await fetch ("http://localhost:4000/users/:id(\\+d)/email", {
+        const res1 = await fetch (`http://localhost:4000/users/${userId}/email`, {
           method: "PUT",
-          body: email,
+          body: JSON.stringify(email),
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-type": 'application/json'
           }
         })
 
-        if(!res1.ok) {
-          console.log("res was throw")
-          throw res1;
-        }
-
+        // if(!res1.ok) {
+        //   console.log("res was throw")
+        //   throw res1;
+        // }
+        const {emailAddress} = res1.json();
+        console.log(emailAddress)
       }
       catch (err) {
         console.log(err)
@@ -56,5 +61,3 @@ buttons.forEach(button => {
     })
   })
 })
-
-

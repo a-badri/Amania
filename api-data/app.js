@@ -13,14 +13,11 @@ app.use(bodyParser.json());
 app.use(morgan(`dev`));
 
 app.use(cors({
-  origin: "*",
+  origin: "http://localhost:8080",
   method: ["POST", "GET", "PUT"],
+  "Access-Control-Allow-Origin": "http://localhost:8080",
   credentials: true
 }))
-
-// app.use(cors({
-//   origin: `http://localhost:8080`
-// }))
 
 
 
@@ -33,6 +30,8 @@ app.use(`/products`, productsRouter)
 //  }) 
 
 //generic error handler
+
+
 app.use((err, req, res, next) => {
   res.status(err.status || 500)
   const isProduction = process.env.NODE_ENV === "production"
@@ -43,5 +42,6 @@ app.use((err, req, res, next) => {
     stack: isProduction ? null : err.stack
   })
 })
+
 
 module.exports = app;
