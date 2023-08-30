@@ -1,0 +1,23 @@
+section.selling-container {
+  width: 90vw;
+  height: 80vh;
+  border: 3px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selling-container > div {
+  
+}
+
+.end-btn {
+  height: 17px;
+  width: 30px;
+  background-color: var(--darkAccentColor);
+  color: black;
+  border: 2px solid black; 
+  border-radius: 8px;
+}
+
+
