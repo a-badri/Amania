@@ -36,6 +36,10 @@ app.get(`/products/:id(\\d+)`, (req, res) => {
   res.render(`product-id`)
 })
 
+app.get(`/sell-product`, (req, res) => {
+  res.render("selling-products")
+})
+
 const port = 8080
 app.listen(port, () => console.log(`listening to port ${port}...`))
 

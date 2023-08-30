@@ -1,0 +1,52 @@
+extends layout.pug 
+
+block css_link 
+  link(rel="stylesheet", href=`/css/selling.css`)
+
+block content
+  section
+    .intro-to-selling 
+      .title 
+        h3 Before You Start
+      .selling-process 
+        ul
+          li Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate sapiente minus quisquam animi saepe voluptas totam, ut quia exercitationem similique!
+          li Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste odit provident quia nemo! Pariatur quam nemo consequuntur corrupti officia odit voluptate iure possimus veniam, doloremque ad quis laboriosam ab laudantium expedita, hic repellendus incidunt reiciendis eius eveniet cumque quas velit. Quod laudantium accusantium nesciunt, corporis maiores veritatis suscipit itaque vitae?
+          li Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed nostrum voluptatem incidunt ratione animi! Est iste nulla quibusdam delectus, in sapiente aspernatur nihil, perferendis suscipit iusto sequi debitis quasi temporibus.
+          li 
+            i Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            i Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            i Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      .end-btn 
+        a(href="#Uplead-pics") Next
+
+    .upload-pictures
+      .title
+        h3 Time to Upload pictures of your products 
+      .paste-links 
+        form
+          input(for="pic-link")
+          input(for="pic-link")
+          input(for="pic-link")
+          input(for="pic-link")
+          input(for="pic-link")
+          input(for="pic-link")
+          button(type="submit")
+      .end-btn 
+        a(href="#create-product")
+
+    .create-product 
+      .fill-in-details 
+        form
+          .form-field
+            label(for=`name`) Product name
+            input(type=`text` name=`name`)
+          .form-field
+            label(for=`description`) Description 
+            input(type=`textarea` name=`description`)
+          .form-field
+            lebel(for=`price`) Price 
+            input(type=`text` name=`price`)
+          button(type=`submit`) Submit
+      .end-btn
+        a(href="#") Done
